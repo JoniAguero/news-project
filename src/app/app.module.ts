@@ -6,17 +6,21 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { HeaderModule } from './components/header/header.module';
+import { NewsComponent } from './pages/news/news.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatGridListModule,
-    HeaderModule
+    HeaderModule, 
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
