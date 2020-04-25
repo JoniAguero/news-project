@@ -2,7 +2,6 @@ const express = require('express');
 var bodyParser = require("body-parser");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
-// const authConfig = require('./authConfig');
 const newsRoute = require('./routes/news');
 
 var cors = require('cors');
