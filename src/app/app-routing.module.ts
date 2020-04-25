@@ -1,25 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProfileComponent } from './pages/profile/profile.component';
 import { NewsComponent } from './pages/news/news.component';
 import { AuthGuard } from './core/guards/auth.guard';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { InterceptorService } from './core/interceptors/http-interceptor.service';
-import { ExternalApiComponent } from './pages/external-api/external-api.component';
 
 const routes: Routes = [
   {
     path: 'news',
-    component: NewsComponent
+    component: NewsComponent,
+    loadChildren: () => import('./pages/news/news.module').then(m => m.NewsModule),
   },
-  {
+  { 
     path: 'profile',
-    component: ProfileComponent,
+    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule),
     canActivate: [AuthGuard]
   },
-  {
+  { 
     path: 'external-api',
-    component: ExternalApiComponent,
+    loadChildren: () => import('./pages/external-api/external-api.module').then(m => m.ExternalModuleApiModule),
     canActivate: [AuthGuard]
   },
   { path: '**', redirectTo: 'news', pathMatch: 'full' },
@@ -29,11 +26,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-  providers: [  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: InterceptorService,
-    multi: true
-  }]
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }
