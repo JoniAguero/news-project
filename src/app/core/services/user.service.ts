@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
-import { Observable } from "rxjs/";
+import { Observable, throwError } from "rxjs/";
 import { New } from '../models/new.model';
 import { User } from '../models/user.model';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: "root"
@@ -18,6 +19,17 @@ export class UserService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
     return this.http.post<New>(`${this.url}/users/`, user, options);
+  }
+
+  getUsers() {
+    return this.http.get(`${this.url}/users`).pipe(
+      map((resp: any) => {
+        return resp;
+      }),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
   }
   
 }

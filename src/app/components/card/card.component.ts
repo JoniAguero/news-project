@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { New } from 'src/app/core/models/new.model';
 import { NewsService } from 'src/app/core/services/news.service';
+import { MaterialService } from 'src/app/core/material/material.service';
 
 @Component({
   selector: 'app-card',
@@ -11,7 +12,10 @@ export class CardComponent implements OnInit {
 
   @Input() new: New;
 
-  constructor(private newsService: NewsService) { }
+  constructor(
+    private newsService: NewsService,
+    private _materialService: MaterialService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -22,7 +26,10 @@ export class CardComponent implements OnInit {
 
   save(newSelected: New) {
     this.newsService.createNew(newSelected).subscribe(data => {
-      console.log(data);
+      this._materialService.openSnackBar('Saved');
+    },
+    error => {
+      this._materialService.openSnackBar(error);
     })
   }
 

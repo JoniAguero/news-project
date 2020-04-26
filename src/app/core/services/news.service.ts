@@ -11,6 +11,7 @@ import { New } from '../models/new.model';
 export class NewsService {
   
   private url = 'http://localhost:8080/api';
+
   constructor(private http: HttpClient) {}
 
   getGoogleNews() {
@@ -26,10 +27,24 @@ export class NewsService {
   }
 
   createNew(_new: New): Observable<New>  {
+
     const options = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
-    return this.http.post<New>(`${this.url}/news/`, _new, options);
+
+    const userId = localStorage.getItem('userId');
+
+    try {
+      if(userId) {
+        _new.userId = userId;
+        return this.http.post<New>(`${this.url}/news/`, _new, options);
+      } else {
+        throw 'You must be logged';
+      }
+    } catch (error) {
+      return throwError(error);
+    }
+    
   }
   
 }

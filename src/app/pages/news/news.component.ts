@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsService } from 'src/app/core/services/news.service';
 import { New } from 'src/app/core/models/new.model';
+import { UserService } from 'src/app/core/services/user.service';
 
 
 @Component({
@@ -12,14 +13,14 @@ export class NewsComponent implements OnInit {
 
   news: New [] = [];
 
-  constructor(private newsService: NewsService) { }
+  constructor(private newsService: NewsService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.newsService.getGoogleNews().subscribe( res => {
       this.news = res.data;
       console.log(this.news);
       
-    } )
+    });
   }
 
 }

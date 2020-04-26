@@ -56,12 +56,42 @@ app.post("/api/users", function(req, res) {
   if (!req.body) {
     handleError(res, "Invalid data", "Wrong user.", 400);
   } else {
-    db.collection('users').insertOne(document, function(err, doc) {
-      if (err) {
-        handleError(res, err.message, "Failed to create new user.");
+    db.collection('users').find({}).toArray(function(err, users) {
+      let exists = false;
+      let verifyUser;
+      users.forEach(user => {
+        if(user.sub == req.body.sub) {
+          exists = true;
+          verifyUser = user;
+        }
+      });
+      if(exists) {
+        res.status(200).json({
+          data: verifyUser
+        });
       } else {
-        res.status(201).json(doc.ops[0]);
+        db.collection('users').insertOne(document, function(err, doc) {
+          if (err) {
+            handleError(res, err.message, "Failed to create new user.");
+          } else {
+            res.status(201).json(
+              {
+                status: 'user created',
+                data: doc.ops[0]
+              });
+          }
+        });
       }
     });
   }
+});
+
+app.get("/api/users", function(req, res) {
+  db.collection('users').find({}).toArray(function(err, users) {
+    if (err) {
+      handleError(res, err.message, "Failed to get uers.");
+    } else {
+      res.status(200).json(users);
+    }
+  });
 });

@@ -7,4 +7,5 @@ export interface New {
   url: string;
   urlToImage: string;
   publishedAt: Date;
+  userId: string;
 }

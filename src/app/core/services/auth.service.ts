@@ -109,8 +109,8 @@ export class AuthService {
       // Response will be an array of user and login status
       authComplete$.subscribe(([user, loggedIn]) => {
         // Redirect to target route after callback processing
-        this._userService.createUser(user).subscribe(data => {
-          console.log(data);
+        this._userService.createUser(user).subscribe((res: any) => {
+          localStorage.setItem('userId', res.data._id);
         });
         this.router.navigate([targetRoute]);
       });
@@ -119,6 +119,7 @@ export class AuthService {
 
   logout() {
     // Ensure Auth0 client instance exists
+    localStorage.removeItem('userId');
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log out
       client.logout({
