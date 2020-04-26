@@ -5,3 +5,13 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
+.img {
+  height: 70px;
+  width: 70px;
+  img {
+    height: 70px;
+    width: 70px;
+    color: white;
+  }
+}

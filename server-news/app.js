@@ -2,7 +2,9 @@ const express = require('express');
 var bodyParser = require("body-parser");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
-const newsRoute = require('./routes/news');
+
+const googleNewsRoute = require('./routes/google-news');
+const newsRoute = require('./routes/news-route');
 
 var cors = require('cors');
 
@@ -33,13 +35,6 @@ const checkJwt = jwt({
   algorithm: ["RS256"]
 });
 
-// Define an endpoint that must be called with an access token
-app.get("/api/external", checkJwt, (req, res) => {
-  res.send({
-    msg: "Your Access Token was successfully validated!"
-  });
-});
-
 // Create link to Angular build directory
 var distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
@@ -48,6 +43,7 @@ app.use(express.static(distDir));
 app.use(express.static(`${__dirname}/public`));
 
 // ROUTES
-app.use('/api/news', newsRoute);
+app.use('/api/google-news', googleNewsRoute);
+// app.use('/api/news', newsRoute);
 
 module.exports = app;

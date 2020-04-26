@@ -1,9 +1,9 @@
 
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/news');
+const controller = require('../controllers/google-news');
 
 router.route('')
-  .get(controller.getNews)
+  .get(controller.getGoogleNews)
 
 module.exports = router;
