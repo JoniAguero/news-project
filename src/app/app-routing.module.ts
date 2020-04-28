@@ -11,8 +11,7 @@ const routes: Routes = [
   },
   { 
     path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule),
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule)
   },
   { 
     path: 'external-api',

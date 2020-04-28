@@ -1,0 +1,41 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="example-toolbar">
+    <div class="img cursor-pointer" (click)="snav.toggle()">
+      <img src="../../../assets/images/icon.png" alt="">
+    </div>
+    <span class="example-spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="auth.login()" *ngIf="!auth.loggedIn">
+        <mat-icon>account_circle</mat-icon>
+        <span>Login</span>
+      </button>
+      <button mat-menu-item (click)="goToMyProfile()" *ngIf="auth.loggedIn">
+        <mat-icon>account_circle</mat-icon>
+        <span>My Profile</span>
+      </button>
+      <button mat-menu-item (click)="auth.logout()" *ngIf="auth.loggedIn">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container"
+                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <div class="container-not-logged" *ngIf="!auth.loggedIn">
+        Para guardar nuevas noticias y realizar postes debe estar logueado.
+        <br>
+        <div class="sign-in">Loguear</div>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
