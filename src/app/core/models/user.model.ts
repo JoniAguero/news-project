@@ -8,5 +8,5 @@ export interface User {
   nickname: string;
   picture: string;
   sub: string;
-  update_at: string;
+  updated_at: string;
 }

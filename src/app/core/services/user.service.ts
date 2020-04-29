@@ -31,5 +31,16 @@ export class UserService {
       })
     );
   }
+
+  getUserById(id: any) {
+    return this.http.get(`${this.url}/users/${id}`).pipe(
+      map((resp: any) => {
+        return resp;
+      }),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }
   
 }

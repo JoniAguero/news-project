@@ -45,8 +45,9 @@ h1.example-app-name {
   height: 70px;
   width: 70px;
   img {
-    height: 70px;
-    width: 70px;
+    margin-top: 5px;
+    height: 60px;
+    width: 60px;
     color: white;
   }
 }
@@ -61,3 +62,48 @@ h1.example-app-name {
     color: blue;
   }
 }
+
+.container-logged {
+  margin: 20px;
+  height: 95%;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .user-info {
+    .user-info-p{
+      display: flex;
+      align-items: center;
+      .user-img {
+        width: 40px;
+        height: 40px;
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+      }
+      .user-name {
+        margin-left: 10px;
+      }
+    }
+    .user-info-email {
+      margin-top: 20px;
+      .email-title {
+        font-weight: bolder;
+      }
+      .email {
+        font-style: oblique;
+      }
+    }
+  }
+  .time {
+    .time-title {
+      // font-weight: bolder;
+    }
+    .time-date {
+      font-weight: bolder;
+    }
+  }
+}
+
