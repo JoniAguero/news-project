@@ -12,9 +12,9 @@
         <mat-icon>account_circle</mat-icon>
         <span>{{ 'test.signin' | translate }}</span>
       </button>
-      <button mat-menu-item (click)="goToMyProfile()" *ngIf="auth.loggedIn">
+      <button mat-menu-item (click)="goToMyDashboard()" *ngIf="auth.loggedIn">
         <mat-icon>account_circle</mat-icon>
-        <span>My Profile</span>
+        <span>Dashboard</span>
       </button>
       <button mat-menu-item (click)="auth.logout()" *ngIf="auth.loggedIn">
         <mat-icon>exit_to_app</mat-icon>

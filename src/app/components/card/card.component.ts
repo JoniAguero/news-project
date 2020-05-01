@@ -2,6 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { New } from 'src/app/core/models/new.model';
 import { NewsService } from 'src/app/core/services/news.service';
 import { MaterialService } from 'src/app/core/material/material.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PostModalComponent } from 'src/app/core/material/modal/post-modal/post-modal.component';
+import { Post } from 'src/app/core/models/post.model';
+import { PostService } from 'src/app/core/services/posts.service';
 
 @Component({
   selector: 'app-card',
@@ -11,10 +15,15 @@ import { MaterialService } from 'src/app/core/material/material.service';
 export class CardComponent implements OnInit {
 
   @Input() new: New;
+  @Input() myNew: boolean = false;
+
+  post: Post = new Post();
 
   constructor(
     private newsService: NewsService,
-    private _materialService: MaterialService
+    private postService: PostService,
+    private _materialService: MaterialService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -31,6 +40,33 @@ export class CardComponent implements OnInit {
     error => {
       this._materialService.openSnackBar(error);
     })
+  }
+
+  createPost(newSelected: New) {
+    
+    const dialogRef = this.dialog.open(PostModalComponent, {
+      width: '500px',
+      data: {title: 'Create Post', action: 'Create'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        const userId = localStorage.getItem('userId');
+
+        this.post.title = result.value.title;
+        this.post.description = result.value.description;
+        this.post.newId = newSelected._id;
+        this.post.userId = userId;
+        this.post.publishedAt = new Date();
+
+        this.postService.createPost(this.post).subscribe(data => {
+          this._materialService.openSnackBar('Saved');
+        },
+        error => {
+          this._materialService.openSnackBar(error);
+        })
+      }
+    });
   }
 
 }

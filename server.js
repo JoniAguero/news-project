@@ -47,6 +47,49 @@ app.post("/api/news", function(req, res) {
   }
 });
 
+app.get("/api/news/user/:id", function(req, res) {
+  db.collection('news').find({ 
+    "userId": req.params.id
+   }).toArray(function(err, users) {
+    if (err) {
+      handleError(res, err.message, "Failed to get uers.");
+    } else {
+      res.status(200).json(users);
+    }
+  });
+});
+
+// ** POSTS **
+
+app.post("/api/posts", function(req, res) {
+
+  var document = req.body;
+
+  if (!req.body) {
+    handleError(res, "Invalid data", "Wrong new.", 400);
+  } else {
+    db.collection('posts').insertOne(document, function(err, doc) {
+      if (err) {
+        handleError(res, err.message, "Failed to create new document.");
+      } else {
+        res.status(201).json(doc.ops[0]);
+      }
+    });
+  }
+});
+
+app.get("/api/posts/user/:id", function(req, res) {
+  db.collection('news').find({ 
+    "userId": req.params.id
+   }).toArray(function(err, users) {
+    if (err) {
+      handleError(res, err.message, "Failed to get uers.");
+    } else {
+      res.status(200).json(users);
+    }
+  });
+});
+
 // ** USERS **
 
 app.post("/api/users", function(req, res) {

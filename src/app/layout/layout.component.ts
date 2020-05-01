@@ -44,8 +44,8 @@ export class LayoutComponent implements OnDestroy, OnInit {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
-  goToMyProfile() {
-    this.router.navigate['/profile'];
+  goToMyDashboard() {
+    this.router.navigate['/dashboard'];
   }
 
 }

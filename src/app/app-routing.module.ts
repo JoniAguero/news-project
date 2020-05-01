@@ -11,11 +11,12 @@ const routes: Routes = [
   },
   { 
     path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule)
+    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule),
+    canActivate: [AuthGuard]
   },
   { 
-    path: 'external-api',
-    loadChildren: () => import('./pages/external-api/external-api.module').then(m => m.ExternalModuleApiModule),
+    path: 'dashboard',
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule),
     canActivate: [AuthGuard]
   },
   { path: '**', redirectTo: 'news', pathMatch: 'full' },

@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content>
+  <ng-content></ng-content>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="back()">Back</button>
+  <button mat-button cdkFocusInitial (click)="accept()">{{ data.action }}</button>
+</div>

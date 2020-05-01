@@ -4,14 +4,16 @@
     <mat-card-title>{{new.title}}</mat-card-title>
     <mat-card-subtitle>{{ new.publishedAt | date:'medium' }}<span *ngIf="new.author"> - {{new.author}}</span></mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image src={{new.urlToImage}}>
+  <img mat-card-image class="image" src={{new.urlToImage}}>
   <mat-card-content>
     <p>
       {{new.description}}
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button (click)="goToNew(new.url)">VIEW</button>
-    <button mat-button (click)="save(new)">SAVE</button>
+    <button mat-button (click)="goToNew(new.url)">View</button>
+    <button mat-button *ngIf="!myNew" (click)="save(new)">Save</button>
+    <button mat-button *ngIf="myNew" (click)="createPost(new)">Create post</button>
+
   </mat-card-actions>
 </mat-card>

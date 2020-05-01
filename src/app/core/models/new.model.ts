@@ -1,4 +1,5 @@
 export interface New {
+  _id: string;
   author: string;
   content: string;
   description: string;

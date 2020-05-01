@@ -5,35 +5,24 @@ import { map, catchError } from "rxjs/operators";
 import { throwError, Observable } from "rxjs/";
 import { New } from '../models/new.model';
 import { AuthService } from './auth.service';
+import { Post } from '../models/post.model';
 
 @Injectable({
   providedIn: "root"
 })
-export class NewsService {
+export class PostService {
   
   private url = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  getGoogleNews() {
-    
-    return this.http.get(`${this.url}/google-news`).pipe(
-      map((resp: any) => {
-        return resp;
-      }),
-      catchError(err => {
-        return throwError(err);
-      })
-    );
-  }
-
-  getMyNews() {
+  getMyPosts(): Observable<Post> {
     
     const userId = localStorage.getItem('userId');
 
     try {
-      if(userId) {
-        return this.http.get(`${this.url}/news/user/${userId}`).pipe(
+      if(userId && this.authService.loggedIn) {
+        return this.http.get(`${this.url}/pots/user/${userId}`).pipe(
           map((resp: any) => {
             return resp;
           }),
@@ -50,7 +39,7 @@ export class NewsService {
     
   }
 
-  createNew(_new: New): Observable<New>  {
+  createPost(_post: Post): Observable<Post>  {
 
     const options = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -60,8 +49,7 @@ export class NewsService {
 
     try {
       if(userId && this.authService.loggedIn) {
-        _new.userId = userId;
-        return this.http.post<New>(`${this.url}/news/`, _new, options);
+        return this.http.post<Post>(`${this.url}/posts/`, _post, options);
       } else {
         throw 'You must be logged';
       }

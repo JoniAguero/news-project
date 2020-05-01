@@ -1,4 +1,5 @@
 export interface User {
+  _id: string;
   email: string;
   email_verified: boolean;
   family_name: string;
