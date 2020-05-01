@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../core/services/user.service';
 import { User } from '../core/models/user.model';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-layout',
@@ -23,7 +24,8 @@ export class LayoutComponent implements OnDestroy, OnInit {
     media: MediaMatcher,
     private router: Router,
     public auth: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private translate: TranslateService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
