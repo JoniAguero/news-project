@@ -17,7 +17,7 @@ export class MissingTranslationService implements MissingTranslationHandler {
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,7 @@ import { Post } from 'src/app/core/models/post.model';
 export class PostModalComponent implements OnInit {
 
   postForm: FormGroup;
+  
   constructor(
     public dialogRef: MatDialogRef<ModalComponent>,
     private fb: FormBuilder,

@@ -50,6 +50,21 @@ export class NewsService {
     
   }
 
+  getNewById(id: string): Observable<New> {
+    try {
+      return this.http.get(`${this.url}/news/${id}`).pipe(
+        map((resp: any) => {
+          return resp;
+        }),
+        catchError(err => {
+          throw err;
+        })
+      );
+    } catch (error) {
+      return throwError(error);
+    } 
+  }
+
   createNew(_new: New): Observable<New>  {
 
     const options = {

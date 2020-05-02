@@ -17,8 +17,6 @@ export class CardComponent implements OnInit {
   @Input() new: New;
   @Input() myNew: boolean = false;
 
-  post: Post = new Post();
-
   constructor(
     private newsService: NewsService,
     private postService: PostService,
@@ -53,13 +51,14 @@ export class CardComponent implements OnInit {
       if(result) {
         const userId = localStorage.getItem('userId');
 
-        this.post.title = result.value.title;
-        this.post.description = result.value.description;
-        this.post.newId = newSelected._id;
-        this.post.userId = userId;
-        this.post.publishedAt = new Date();
+        let post: Post = new Post();
+        post.title = result.value.title;
+        post.description = result.value.description;
+        post.newId = newSelected._id;
+        post.userId = userId;
+        post.publishedAt = new Date();
 
-        this.postService.createPost(this.post).subscribe(data => {
+        this.postService.createPost(post).subscribe(data => {
           this._materialService.openSnackBar('Saved');
         },
         error => {

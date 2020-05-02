@@ -1,11 +1,7 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
 import { AuthService } from '../core/services/auth.service';
-import { Router } from '@angular/router';
-import { UserService } from '../core/services/user.service';
 import { User } from '../core/models/user.model';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-layout',
@@ -22,10 +18,7 @@ export class LayoutComponent implements OnDestroy, OnInit {
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private router: Router,
-    public auth: AuthService,
-    private userService: UserService,
-    private translate: TranslateService
+    public auth: AuthService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -42,10 +35,6 @@ export class LayoutComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
-  }
-
-  goToMyDashboard() {
-    this.router.navigate['/dashboard'];
   }
 
 }

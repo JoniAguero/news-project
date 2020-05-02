@@ -4,6 +4,11 @@ export class Post {
   description: string;
   rating: any;
   publishedAt: Date;
-  userId: string;
-  newId: string;
+  userId: any;
+  newId: any;
+
+  public constructor(init?:Partial<Post>) {
+    Object.assign(this, init);
+  }
+
 }

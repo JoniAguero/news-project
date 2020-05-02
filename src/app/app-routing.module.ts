@@ -1,25 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NewsComponent } from './pages/news/news.component';
-import { AuthGuard } from './core/guards/auth.guard';
+import { LayoutComponent } from './layout/layout.component';
 
 const routes: Routes = [
   {
-    path: 'news',
-    component: NewsComponent,
-    loadChildren: () => import('./pages/news/news.module').then(m => m.NewsModule),
+    path: '',
+    component: LayoutComponent,
   },
-  { 
-    path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule),
-    canActivate: [AuthGuard]
-  },
-  { 
-    path: 'dashboard',
-    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule),
-    canActivate: [AuthGuard]
-  },
-  { path: '**', redirectTo: 'news', pathMatch: 'full' },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 

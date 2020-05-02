@@ -6,6 +6,8 @@ import { throwError, Observable } from "rxjs/";
 import { New } from '../models/new.model';
 import { AuthService } from './auth.service';
 import { Post } from '../models/post.model';
+import { NewsService } from './news.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: "root"
@@ -14,15 +16,35 @@ export class PostService {
   
   private url = 'http://localhost:8080/api';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private newsService: NewsService,
+    private userService: UserService
+  ) {}
+
+  getPosts(): Observable<Post[]> {
+    try {
+      return this.http.get(`${this.url}/posts/`).pipe(
+        map((resp: any) => {
+          resp = resp.map(post => this.hydratePost(post));
+          return resp;
+        }),
+        catchError(err => {
+          throw err;
+        })
+      );
+    } catch (error) {
+      return throwError(error);
+    }
+  }
+
 
   getMyPosts(): Observable<Post> {
-    
     const userId = localStorage.getItem('userId');
-
     try {
       if(userId && this.authService.loggedIn) {
-        return this.http.get(`${this.url}/pots/user/${userId}`).pipe(
+        return this.http.get(`${this.url}/posts/user/${userId}`).pipe(
           map((resp: any) => {
             return resp;
           }),
@@ -36,17 +58,13 @@ export class PostService {
     } catch (error) {
       return throwError(error);
     }
-    
   }
 
   createPost(_post: Post): Observable<Post>  {
-
     const options = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
-
     const userId = localStorage.getItem('userId');
-
     try {
       if(userId && this.authService.loggedIn) {
         return this.http.post<Post>(`${this.url}/posts/`, _post, options);
@@ -56,7 +74,26 @@ export class PostService {
     } catch (error) {
       return throwError(error);
     }
+  }
+
+  // getPostById(id: number): Observable<Asset> {
+  //   return this.http.get<Asset>(`/api/assets/${id}`).pipe(
+  //     map((asset: any) => {
+  //       return this.hydrateAsset(asset)
+  //     })
+  //   );
+  // }
+
+  private hydratePost(data: any): Post {
+    const post = new Post(data);
     
+    if (data.userId) this.userService.getUserById(data.userId).subscribe((user)=> post.userId = user[0]);
+    if (data.newId) this.newsService.getNewById(data.newId).subscribe((_new) => post.newId = _new[0]);
+    
+    console.log(post);
+    
+
+    return post;
   }
   
 }

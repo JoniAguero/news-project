@@ -12,10 +12,6 @@
         <mat-icon>account_circle</mat-icon>
         <span>{{ 'test.signin' | translate }}</span>
       </button>
-      <button mat-menu-item (click)="goToMyDashboard()" *ngIf="auth.loggedIn">
-        <mat-icon>account_circle</mat-icon>
-        <span>Dashboard</span>
-      </button>
       <button mat-menu-item (click)="auth.logout()" *ngIf="auth.loggedIn">
         <mat-icon>exit_to_app</mat-icon>
         <span>Logout</span>
@@ -62,7 +58,17 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-      <router-outlet></router-outlet>
+      <mat-tab-group>
+        <mat-tab label="News">
+          <app-news></app-news>
+        </mat-tab>
+        <mat-tab label="Posts">
+          <app-posts></app-posts>
+        </mat-tab>
+        <mat-tab label="Dashboard" *ngIf="auth.loggedIn">
+          <app-dashboard></app-dashboard>
+        </mat-tab>
+      </mat-tab-group>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

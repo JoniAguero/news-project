@@ -1,5 +1,6 @@
 const app = require('./server-news/app');
 var mongodb = require("mongodb");
+var ObjectId = require('mongodb').ObjectId; 
 
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 exports.db;
@@ -59,6 +60,18 @@ app.get("/api/news/user/:id", function(req, res) {
   });
 });
 
+app.get("/api/news/:id", function(req, res) {
+  db.collection('news').find({
+    "_id": ObjectId(req.params.id)
+  }).toArray(function(err, _new) {
+    if (err) {
+      handleError(res, err.message, "Failed to get uers.");
+    } else {
+      res.status(200).json(_new);
+    }
+  });
+});
+
 // ** POSTS **
 
 app.post("/api/posts", function(req, res) {
@@ -79,9 +92,19 @@ app.post("/api/posts", function(req, res) {
 });
 
 app.get("/api/posts/user/:id", function(req, res) {
-  db.collection('news').find({ 
+  db.collection('posts').find({ 
     "userId": req.params.id
    }).toArray(function(err, users) {
+    if (err) {
+      handleError(res, err.message, "Failed to get uers.");
+    } else {
+      res.status(200).json(users);
+    }
+  });
+});
+
+app.get("/api/posts/", function(req, res) {
+  db.collection('posts').find().toArray(function(err, users) {
     if (err) {
       handleError(res, err.message, "Failed to get uers.");
     } else {
@@ -135,6 +158,18 @@ app.get("/api/users", function(req, res) {
       handleError(res, err.message, "Failed to get uers.");
     } else {
       res.status(200).json(users);
+    }
+  });
+});
+
+app.get("/api/users/:id", function(req, res) {
+  db.collection('users').find({
+    "_id": ObjectId(req.params.id)
+  }).toArray(function(err, user) {
+    if (err) {
+      handleError(res, err.message, "Failed to get uers.");
+    } else {
+      res.status(200).json(user);
     }
   });
 });

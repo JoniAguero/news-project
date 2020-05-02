@@ -12,12 +12,15 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTabsModule } from '@angular/material/tabs';
+
 import { SnackComponent } from './snackbar/snabkbar.component';
 import { ModalComponent } from './modal/modal.component';
 import { PostModalComponent } from './modal/post-modal/post-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommentModalComponent } from './modal/comment-modal/comment-modal.component';
 @NgModule({
-  declarations: [SnackComponent, ModalComponent, PostModalComponent],
+  declarations: [SnackComponent, ModalComponent, PostModalComponent, CommentModalComponent],
   imports: [
     CommonModule,
     DragDropModule,
@@ -31,7 +34,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ScrollingModule,
     MatFormFieldModule,
     MatToolbarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTabsModule
   ],
   exports: [
     DragDropModule,
@@ -45,7 +49,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSnackBarModule,
     ScrollingModule,
     MatFormFieldModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTabsModule
   ],
   entryComponents: [PostModalComponent],
 
