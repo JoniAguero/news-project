@@ -7,4 +7,8 @@ body { padding: 0; margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
   cursor: pointer;
 }
 
+mat-sidenav {
+  visibility: visible!important;
+}
+
 $color-primary: #3f51b5;

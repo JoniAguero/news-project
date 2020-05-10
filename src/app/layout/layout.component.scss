@@ -107,3 +107,10 @@ h1.example-app-name {
   }
 }
 
+
+
+@media only screen and (max-width: 768px) {
+  .title {
+    display: none;
+  }
+}

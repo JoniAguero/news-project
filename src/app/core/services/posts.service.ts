@@ -40,7 +40,7 @@ export class PostService {
   }
 
 
-  getMyPosts(): Observable<Post> {
+  getMyPosts(): Observable<Post[]> {
     const userId = localStorage.getItem('userId');
     try {
       if(userId && this.authService.loggedIn) {

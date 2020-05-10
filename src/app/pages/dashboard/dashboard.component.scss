@@ -1,9 +1,13 @@
-.container-news {
-  margin-left: 15%;
+.container-new-post {
   width: 70%;
-  display: flex;
-  flex-wrap: wrap;
-  app-card {
-    min-width: 400px;
+  margin-left: 15%;
+  margin-top: 50px;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .container-new-post  {
+    width: 90%;
+    margin-left: 5%;
   }
 }

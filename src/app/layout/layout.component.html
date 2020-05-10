@@ -3,6 +3,7 @@
     <div class="img cursor-pointer" (click)="snav.toggle()">
       <img src="../../../assets/images/icon.png" alt="">
     </div>
+    <h1 class="title">El Portal de Periodistas Independientes</h1>
     <span class="example-spacer"></span>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>more_vert</mat-icon>
@@ -24,9 +25,12 @@
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <div class="container-not-logged" *ngIf="!user">
-        Para guardar nuevas noticias y realizar postes debe estar logueado.
+        Para crear nuevas noticias y realizar posteos debes estar logueado.
         <br>
-        <div class="sign-in cursor-pointer" (click)="auth.login()">Sign in</div>
+        <br>
+        Puedes utilizar el servicio de imagenes de nuestros amigos de <a target="_blank" href="https://unsplash.com/">unsplash</a> para inspirarte.
+        <br>
+        <div class="sign-in cursor-pointer" (click)="auth.login()">¡Crea una cuenta, o ingresa!</div>
       </div>
 
       <div class="container-logged" *ngIf="auth.loggedIn">
@@ -59,13 +63,13 @@
 
     <mat-sidenav-content>
       <mat-tab-group>
-        <mat-tab label="News">
+        <mat-tab label="Global News">
           <app-news></app-news>
         </mat-tab>
         <mat-tab label="Posts">
           <app-posts></app-posts>
         </mat-tab>
-        <mat-tab label="Dashboard" *ngIf="auth.loggedIn">
+        <mat-tab label="Dashboard">
           <app-dashboard></app-dashboard>
         </mat-tab>
       </mat-tab-group>

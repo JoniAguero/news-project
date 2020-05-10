@@ -4,7 +4,7 @@ const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 
 const googleNewsRoute = require('./routes/google-news');
-const newsRoute = require('./routes/news-route');
+const iamgesRoute = require('./routes/images');
 
 var cors = require('cors');
 
@@ -44,6 +44,6 @@ app.use(express.static(`${__dirname}/public`));
 
 // ROUTES
 app.use('/api/google-news', googleNewsRoute);
-// app.use('/api/news', newsRoute);
+app.use('/api/images', iamgesRoute);
 
 module.exports = app;

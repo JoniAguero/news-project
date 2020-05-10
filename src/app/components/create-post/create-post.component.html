@@ -1,0 +1,46 @@
+<mat-vertical-stepper [linear]="true" #stepper>
+  <mat-step [stepControl]="titleFormGroup">
+    <form [formGroup]="titleFormGroup">
+      <ng-template matStepLabel>Fill out your title</ng-template>
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput placeholder="Example: Covid-19 Latest News" formControlName="title" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="descriptionFormGroup">
+    <form [formGroup]="descriptionFormGroup">
+      <ng-template matStepLabel>Fill out your description</ng-template>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea
+          placeholder="Example: Covid-19 Latest News"
+          matInput 
+          formControlName="description" 
+          rows="10" 
+          minlength="30"
+          required
+        ></textarea>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="imageFormGroup">
+    <form [formGroup]="imageFormGroup">
+      <ng-template matStepLabel>Pick an image</ng-template>
+      <div class="container-images">
+        <app-img-post [image]="image" (click)="selectImage(i)" *ngFor="let image of images; let i = index"></app-img-post>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-vertical-stepper>

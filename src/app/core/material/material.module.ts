@@ -13,14 +13,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTabsModule } from '@angular/material/tabs';
-
+import { MatStepperModule} from '@angular/material/stepper';
 import { SnackComponent } from './snackbar/snabkbar.component';
 import { ModalComponent } from './modal/modal.component';
-import { PostModalComponent } from './modal/post-modal/post-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommentModalComponent } from './modal/comment-modal/comment-modal.component';
+import { RatingsComponent } from './ratings/ratings.component';
 @NgModule({
-  declarations: [SnackComponent, ModalComponent, PostModalComponent, CommentModalComponent],
+  declarations: [SnackComponent, ModalComponent, CommentModalComponent, RatingsComponent],
   imports: [
     CommonModule,
     DragDropModule,
@@ -35,7 +35,8 @@ import { CommentModalComponent } from './modal/comment-modal/comment-modal.compo
     MatFormFieldModule,
     MatToolbarModule,
     ReactiveFormsModule,
-    MatTabsModule
+    MatTabsModule,
+    MatStepperModule
   ],
   exports: [
     DragDropModule,
@@ -50,9 +51,10 @@ import { CommentModalComponent } from './modal/comment-modal/comment-modal.compo
     ScrollingModule,
     MatFormFieldModule,
     MatToolbarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatStepperModule
   ],
-  entryComponents: [PostModalComponent],
+  entryComponents: [CommentModalComponent],
 
 })
 export class MaterialModule {}

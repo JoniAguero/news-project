@@ -1,6 +1,9 @@
 <app-modal [data]="data" (callback)="callback($event)">
   <div class="container-post-modal">
     <form [formGroup]="commentForm">
+      <div class="ratings">
+        <app-ratings></app-ratings>
+      </div>
       <mat-form-field>
         <mat-label>Comentario</mat-label>
         <textarea 
