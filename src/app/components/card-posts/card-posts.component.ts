@@ -13,15 +13,17 @@ import { CommentModalComponent } from 'src/app/core/material/modal/comment-modal
 export class CardPostsComponent implements OnInit {
 
   @Input() post: Post;
+  userId: any;
 
   constructor(
     private authService: AuthService,
     private _materialService: MaterialService,
     public dialog: MatDialog
-  ) { }
-
-  ngOnInit(): void {
+  ) {
+    this.userId= localStorage.getItem('userId');
   }
+
+  ngOnInit(): void {}
 
   comment() {
     if(!this.authService.loggedIn) {
@@ -29,6 +31,11 @@ export class CardPostsComponent implements OnInit {
     } else {
     }
     this.createComment();
+  }
+
+  delete() {
+    console.log('delete');
+    
   }
 
   createComment() {

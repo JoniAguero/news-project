@@ -17,11 +17,11 @@ export class DashboardComponent implements OnInit {
   images: any [] = [];
   posts: Post [] = [];
   myNew = true;
+  _showAddPost: boolean = false;
 
   constructor(
     private imagesService: ImagesService,
     private postService: PostService,
-    private _materialService: MaterialService,
     public dialog: MatDialog
   ) { }
 
@@ -43,8 +43,12 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  createPost(newSelected: New) {
-    
+  showAddPost() {
+    this._showAddPost = !this._showAddPost;
+  }
+
+  callbackLoadPosts() {
+    this.getMyPosts();
   }
 
 }

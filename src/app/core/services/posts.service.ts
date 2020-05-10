@@ -19,7 +19,6 @@ export class PostService {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private newsService: NewsService,
     private userService: UserService
   ) {}
 
@@ -42,10 +41,13 @@ export class PostService {
 
   getMyPosts(): Observable<Post[]> {
     const userId = localStorage.getItem('userId');
+    console.log(userId);
+    
     try {
-      if(userId && this.authService.loggedIn) {
+      if(userId) {
         return this.http.get(`${this.url}/posts/user/${userId}`).pipe(
           map((resp: any) => {
+            resp = resp.map(post => this.hydratePost(post));
             return resp;
           }),
           catchError(err => {
@@ -76,23 +78,10 @@ export class PostService {
     }
   }
 
-  // getPostById(id: number): Observable<Asset> {
-  //   return this.http.get<Asset>(`/api/assets/${id}`).pipe(
-  //     map((asset: any) => {
-  //       return this.hydrateAsset(asset)
-  //     })
-  //   );
-  // }
 
   private hydratePost(data: any): Post {
     const post = new Post(data);
-    
     if (data.userId) this.userService.getUserById(data.userId).subscribe((user)=> post.userId = user[0]);
-    if (data.newId) this.newsService.getNewById(data.newId).subscribe((_new) => post.newId = _new[0]);
-    
-    console.log(post);
-    
-
     return post;
   }
   

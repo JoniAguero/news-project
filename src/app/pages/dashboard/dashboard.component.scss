@@ -1,12 +1,42 @@
-.container-new-post {
+.container-dashboard {
   width: 70%;
   margin-left: 15%;
   margin-top: 50px;
+  .container-info {
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 50px;
+  }
+  .container-posts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .not-posts {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+  }
+  .container-new-post {
+    display: flex;
+    flex-direction: column;
+    .new-post-title {
+      font-size: 24px;
+      margin-bottom: 50px;
+    }
+    .add-new-post {
+      align-self: flex-end;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+  }
 }
 
 
 @media only screen and (max-width: 768px) {
-  .container-new-post  {
+  .container-dashboard  {
     width: 90%;
     margin-left: 5%;
   }

@@ -4,7 +4,7 @@
     <mat-card-title>{{post.userId.name}}</mat-card-title>
     <mat-card-subtitle>{{post.userId.email}}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image src={{post.newId.urlToImage}} alt="Photo of a Shiba Inu">
+  <img mat-card-image src={{post.imageUrl}} alt="Photo of a Shiba Inu">
   <mat-card-content>
     <h3>{{post.title}}</h3>
     <p>
@@ -12,6 +12,7 @@
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button (click)="comment()">Comentar</button>
+    <button mat-button (click)="comment()" *ngIf="userId === !post.userId._id">Comentar</button>
+    <button mat-button (click)="delete()" *ngIf="userId === post.userId._id">Eliminar</button>
   </mat-card-actions>
 </mat-card>
