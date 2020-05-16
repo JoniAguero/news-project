@@ -41,8 +41,6 @@ export class PostService {
 
   getMyPosts(): Observable<Post[]> {
     const userId = localStorage.getItem('userId');
-    console.log(userId);
-    
     try {
       if(userId) {
         return this.http.get(`${this.url}/posts/user/${userId}`).pipe(
@@ -78,6 +76,16 @@ export class PostService {
     }
   }
 
+  getPostById(id: any): Observable<Post> {
+    return this.http.get(`${this.url}/posts/${id}`).pipe(
+      map((resp: any) => {
+        return this.hydratePost(resp);
+      }),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }
 
   private hydratePost(data: any): Post {
     const post = new Post(data);

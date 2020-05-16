@@ -1,8 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalComponent } from '../modal.component';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MaterialService } from '../../material.service';
 
 @Component({
   selector: 'app-comment-modal',
@@ -11,36 +9,29 @@ import { MaterialService } from '../../material.service';
 })
 export class CommentModalComponent implements OnInit {
 
-  commentForm: FormGroup;
+  rating: any;
 
   constructor(
     public dialogRef: MatDialogRef<ModalComponent>,
-    private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      this.createForm();
+      
     }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
+
+  ratingUpdated(rating) {
+    this.rating = rating;
+  }
 
   callback(e: boolean) {
     if(e) {
-      this.submit();
+      this.dialogRef.close(this.rating);
+
     } else {
-      this.dialogRef.close();
+      this.dialogRef.close(false);
     }
-  }
-
-  get f() { return this.commentForm.controls; }
-
-  createForm() {
-    this.commentForm = this.fb.group({
-      description: ['', Validators.required],
-      rating: ['']
-    });
-  }
-
-  submit() {
-    this.dialogRef.close(this.commentForm);
   }
 
 }

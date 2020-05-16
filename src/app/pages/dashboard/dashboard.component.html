@@ -1,19 +1,19 @@
 <div class="container-dashboard">
   <div class="container-info">
-    En tu dashboard eres capaz de ver tus posts creados y crear nuevos posts.
+    En tu dashboard eres capaz de ver tus posts y crear nuevos.
   </div>
-  <div class="container-posts" *ngIf="posts.length > 0">
+  <div class="container-new-post">
+    <div class="add-new-post">
+      <button mat-mini-fab color="primary" (click)="showAddPost()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <app-create-post [images]="images" *ngIf="_showAddPost" (callbackLoadPosts)="callbackLoadPosts()"></app-create-post>
+  </div>
+  <div class="container-posts" *ngIf="posts.length > 0 && !_showAddPost">
     <app-card-posts [post]="post" *ngFor="let post of posts"></app-card-posts>
   </div>
   <div class="not-posts" *ngIf="posts.length === 0">
     ¡Todavía no has creado ningún post! Crea un nuevo post y recibe las críticas de tus pares para convertirte en un gran periodista.
-  </div>
-  <div class="container-new-post">
-    <div class="add-new-post">
-      <button mat-fab color="primary" (click)="showAddPost()">
-        <mat-icon>expand_more</mat-icon>
-      </button>
-    </div>
-    <app-create-post [images]="images" *ngIf="_showAddPost" (callbackLoadPosts)="callbackLoadPosts()"></app-create-post>
   </div>
 </div>

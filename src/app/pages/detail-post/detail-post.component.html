@@ -1,0 +1,60 @@
+<div class="container-detail-post">
+  <div class="back">
+    <button mat-mini-fab color="primary" (click)="back()">
+      <mat-icon>arrow_left</mat-icon>
+    </button>
+  </div>
+  <div class="detail-post">
+    <div class="image">
+      <div class="author">
+        <div class="author-image">
+          <img src={{post.userId.picture}}>
+        </div>
+        <div class="name">
+          {{ post.userId.name }}
+        </div>
+      </div>
+      <img src={{post.imageUrl}}>
+    </div>
+    <div class="post">
+      <div class="title">
+        {{ post.title }}
+      </div>
+      <div class="description">
+        {{ post.description }}
+      </div>
+      <div class="published">
+        <span>Articulo publicado </span>
+        <i>{{ post.publishedAt | date:'medium' }}</i>
+      </div>
+    </div>
+  </div>
+  <div class="container-comments">
+    <div class="do-comment">
+      <mat-form-field 
+      [ngClass]="{
+        'full': !enabledButtonComment,
+        'onfocus': enabledButtonComment
+      }"
+      >
+        <mat-label>Escribe un nuevo comentario</mat-label>
+        <textarea
+          [(ngModel)]="comentario"
+          placeholder="Comentario"
+          matInput 
+          rows="5" 
+          (keydown.enter)="newComment()"
+          (focus)="onFocus()"
+        ></textarea>
+      </mat-form-field>
+      <div class="new-comment" *ngIf="enabledButtonComment">
+        <button mat-mini-fab color="primary" (click)="newComment()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="comments">
+      <app-comment class="app-comment" [comment]="comment" *ngFor="let comment of comments" ></app-comment>
+    </div>
+  </div>
+</div>

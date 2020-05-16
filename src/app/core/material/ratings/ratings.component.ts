@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class RatingsComponent implements OnInit {
 
-  @Input('rating') rating: number = 3;
+  @Input('rating') rating: number = 0;
   @Input('starCount') starCount: number = 5;
   @Input('color') color: string = 'accent';
   @Output() ratingUpdated = new EventEmitter();
@@ -18,7 +18,6 @@ export class RatingsComponent implements OnInit {
 
   constructor(public snackBar: MatSnackBar) {
   }
-
 
   ngOnInit() {
     for (let index = 0; index < this.starCount; index++) {

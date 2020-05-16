@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Post } from 'src/app/core/models/post.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { MaterialService } from 'src/app/core/material/material.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CommentModalComponent } from 'src/app/core/material/modal/comment-modal/comment-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card-posts',
@@ -13,7 +14,10 @@ import { CommentModalComponent } from 'src/app/core/material/modal/comment-modal
 export class CardPostsComponent implements OnInit {
 
   @Input() post: Post;
+  @Output() callbackViewPost = new EventEmitter<any>();
+
   userId: any;
+  showDescription: string;
 
   constructor(
     private authService: AuthService,
@@ -23,19 +27,16 @@ export class CardPostsComponent implements OnInit {
     this.userId= localStorage.getItem('userId');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.showDescription = `${this.post.description.slice(0, 200)}...`;
+  }
 
-  comment() {
-    if(!this.authService.loggedIn) {
-      this._materialService.openSnackBar('You must be logged');
-    } else {
-    }
-    this.createComment();
+  view() {
+    this.callbackViewPost.emit(this.post);
   }
 
   delete() {
     console.log('delete');
-    
   }
 
   createComment() {

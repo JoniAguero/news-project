@@ -10,6 +10,8 @@ import { PostService } from 'src/app/core/services/posts.service';
 export class PostsComponent implements OnInit {
 
   posts: Post [] = [];
+  detailPost: Post;
+  viewDetailPost: boolean = false;
 
   constructor(
     private postService: PostService
@@ -24,5 +26,15 @@ export class PostsComponent implements OnInit {
       this.posts = data;
     })
   }
+
+  callbackViewPost(e) {
+    this.viewDetailPost = true;
+    this.detailPost = e;
+  }
+
+  callbackViewAllPosts(e) {
+    this.viewDetailPost = false;
+  }
+
 
 }

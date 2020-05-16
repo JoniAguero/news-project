@@ -7,6 +7,10 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
   },
+  {
+    path: 'posts/:id',
+    component: LayoutComponent,
+  },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 

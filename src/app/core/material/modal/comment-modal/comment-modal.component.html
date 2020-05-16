@@ -1,19 +1,8 @@
 <app-modal [data]="data" (callback)="callback($event)">
   <div class="container-post-modal">
-    <form [formGroup]="commentForm">
-      <div class="ratings">
-        <app-ratings></app-ratings>
-      </div>
-      <mat-form-field>
-        <mat-label>Comentario</mat-label>
-        <textarea 
-          matInput 
-          formControlName="description" 
-          rows="10" 
-          minlength="30"
-          required
-        ></textarea>
-      </mat-form-field>
-    </form>
+    <p>¿Desea dejar un puntaje?</p>
+    <div class="ratings">
+      <app-ratings (ratingUpdated)="ratingUpdated($event)"></app-ratings>
+    </div>
   </div>
 </app-modal>

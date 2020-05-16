@@ -106,9 +106,21 @@ app.get("/api/posts/user/:id", function(req, res) {
 app.get("/api/posts/", function(req, res) {
   db.collection('posts').find().toArray(function(err, users) {
     if (err) {
-      handleError(res, err.message, "Failed to get uers.");
+      handleError(res, err.message, "Failed to get posts.");
     } else {
       res.status(200).json(users);
+    }
+  });
+});
+
+app.get("/api/posts/:id", function(req, res) {
+  db.collection('posts').find({
+    "_id": ObjectId(req.params.id)
+  }).toArray(function(err, post) {
+    if (err) {
+      handleError(res, err.message, "Failed to get posts.");
+    } else {
+      res.status(200).json(post);
     }
   });
 });
@@ -170,6 +182,37 @@ app.get("/api/users/:id", function(req, res) {
       handleError(res, err.message, "Failed to get uers.");
     } else {
       res.status(200).json(user);
+    }
+  });
+});
+
+// ** COMMENTS **
+
+app.post("/api/comments", function(req, res) {
+
+  var document = req.body;
+
+  if (!req.body) {
+    handleError(res, "Invalid data", "Wrong comment.", 400);
+  } else {
+    db.collection('comments').insertOne(document, function(err, doc) {
+      if (err) {
+        handleError(res, err.message, "Failed to create comment.");
+      } else {
+        res.status(201).json(doc.ops[0]);
+      }
+    });
+  }
+});
+
+app.get("/api/comments/post/:id", function(req, res) {
+  db.collection('comments').find({ 
+    "postId": req.params.id
+   }).toArray(function(err, comments) {
+    if (err) {
+      handleError(res, err.message, "Failed to get comments.");
+    } else {
+      res.status(200).json(comments);
     }
   });
 });
