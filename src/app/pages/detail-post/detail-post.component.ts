@@ -8,6 +8,7 @@ import { CommentModalComponent } from 'src/app/core/material/modal/comment-modal
 import { Comment } from 'src/app/core/models/comment.model';
 import { CommentService } from 'src/app/core/services/comment.service';
 import { MaterialService } from 'src/app/core/material/material.service';
+import { RatingService } from 'src/app/core/services/rating.service';
 
 @Component({
   selector: 'app-detail-post',
@@ -22,15 +23,18 @@ export class DetailPostComponent implements OnChanges, OnDestroy {
   subscriptionRouter: Subscription = new Subscription();
   enabledButtonComment: boolean = false;
   comentario = '';
-  rating ;
+  rating;
   comments: Comment [];
+  ratingTotalPost: any;
+  haveRating: boolean = false; 
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private commentService: CommentService,
-    private _materialService: MaterialService
+    private _materialService: MaterialService,
+    private ratingService: RatingService
   ) {
     this.subscriptionRouter.add(this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd ),
@@ -47,6 +51,7 @@ export class DetailPostComponent implements OnChanges, OnDestroy {
   getComments() {
     this.commentService.getComments(this.post._id).subscribe( data => {
       this.comments = data;
+      this.calculateRating(this.comments);
     })
   }
 
@@ -57,6 +62,13 @@ export class DetailPostComponent implements OnChanges, OnDestroy {
   back() {
     this.router.navigate([''])
     this.callbackViewAllPosts.emit(true);
+  }
+
+  calculateRating(comments: any) {
+    this.ratingTotalPost = this.ratingService.calculateRating(comments);
+    if(this.ratingTotalPost > 0) {
+      this.haveRating = true;
+    }
   }
 
   newComment() {

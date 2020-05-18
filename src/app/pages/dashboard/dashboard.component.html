@@ -5,7 +5,8 @@
   <div class="container-new-post">
     <div class="add-new-post">
       <button mat-mini-fab color="primary" (click)="showAddPost()">
-        <mat-icon>add</mat-icon>
+        <mat-icon *ngIf="!_showAddPost">add</mat-icon>
+        <mat-icon *ngIf="_showAddPost">view_agenda</mat-icon>
       </button>
     </div>
     <app-create-post [images]="images" *ngIf="_showAddPost" (callbackLoadPosts)="callbackLoadPosts()"></app-create-post>

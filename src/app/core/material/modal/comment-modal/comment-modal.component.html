@@ -1,6 +1,9 @@
 <app-modal [data]="data" (callback)="callback($event)">
   <div class="container-post-modal">
-    <p>¿Desea dejar un puntaje?</p>
+    <p></p>
+    <p style="text-align: center;">Muchas gracias por su comentario.</p>
+    <br>
+    <p style="text-align: center;">¿Desea dejar unas estrellitas?</p>
     <div class="ratings">
       <app-ratings (ratingUpdated)="ratingUpdated($event)"></app-ratings>
     </div>

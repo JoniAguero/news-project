@@ -29,6 +29,7 @@
     "@angular/router": "~9.1.0",
     "@auth0/auth0-spa-js": "^1.7.0",
     "@biesbjerg/ngx-translate-extract": "^6.0.4",
+    "@ngrx/store": "^9.1.2",
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
     "babel-preset-env": "^1.7.0",

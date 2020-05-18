@@ -5,15 +5,10 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent {
 
   @Input() comment: any;
 
   constructor() { }
-
-  ngOnInit(): void {
-    console.log(this.comment);
-    
-  }
 
 }

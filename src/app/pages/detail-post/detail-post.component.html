@@ -15,6 +15,17 @@
         </div>
       </div>
       <img src={{post.imageUrl}}>
+      <div class="rating" *ngIf="haveRating">
+        <div class="text">
+          Esta publicación tiene una puntuación de
+        </div>
+        <div class="num">
+          {{ ratingTotalPost }}
+        </div>
+      </div>
+      <div class="no-rating" *ngIf="!haveRating">
+        Esta publicación aún no ha recibido puntuaciones.
+      </div>
     </div>
     <div class="post">
       <div class="title">
