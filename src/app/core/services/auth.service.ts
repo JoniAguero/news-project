@@ -5,6 +5,9 @@ import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { UserService } from "../services/user.service";
+import { Store } from '@ngrx/store';
+import * as authActions from "../../store/actions/auth.actions";
+
 @Injectable({
   providedIn: 'root'
 })
@@ -39,7 +42,11 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  constructor(private router: Router, private _userService: UserService) {
+  constructor(
+    private router: Router, 
+    private _userService: UserService, 
+    private store: Store<{ auth }>
+  ) {
     // On initial load, check authentication state with authorization server
     // Set up local auth streams if user is already authenticated
     this.localAuthSetup();
@@ -111,6 +118,7 @@ export class AuthService {
         // Redirect to target route after callback processing
         this._userService.createUser(user).subscribe((res: any) => {
           localStorage.setItem('userId', res.data._id);
+          this.store.dispatch(authActions.login({auth: 'authenticated'}));
         });
         this.router.navigate([targetRoute]);
       });
@@ -120,6 +128,7 @@ export class AuthService {
   logout() {
     // Ensure Auth0 client instance exists
     localStorage.removeItem('userId');
+    this.store.dispatch(authActions.logout({auth: 'unauthenticated'}));
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log out
       client.logout({
