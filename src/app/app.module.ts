@@ -11,7 +11,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { authReducer } from './store/reducer/auth.reducer';
+import { appReducers } from './store/app.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { EffectsArray } from './store/effects';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader { return new TranslateHttpLoader(http, './assets/locale/', '.json'); } 
 export class MissingTranslationService implements MissingTranslationHandler { 
@@ -29,7 +31,8 @@ export class MissingTranslationService implements MissingTranslationHandler {
     BrowserAnimationsModule,
     HttpClientModule,
     LayoutModule,
-    StoreModule.forRoot({ authReducer }),
+    StoreModule.forRoot( appReducers ),
+    EffectsModule.forRoot(EffectsArray),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode

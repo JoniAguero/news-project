@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "start-mongo": "sudo systemctl start mongod",
     "start": "node server.js",
     "start-dev": "nodemon server.js",
     "dev": "ng serve --port 3000",
@@ -29,6 +30,7 @@
     "@angular/router": "~9.1.0",
     "@auth0/auth0-spa-js": "^1.7.0",
     "@biesbjerg/ngx-translate-extract": "^6.0.4",
+    "@ngrx/effects": "^9.1.2",
     "@ngrx/store": "^9.1.2",
     "@ngrx/store-devtools": "^9.1.2",
     "@ngx-translate/core": "^12.1.2",
@@ -72,5 +74,5 @@
   "engines": {
     "node": "13.1.0",
     "npm": "6.12.1"
- }
+  }
 }

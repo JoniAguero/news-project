@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/core/models/post.model';
-import { PostService } from 'src/app/core/services/posts.service';
+import { Store } from '@ngrx/store';
+import * as actions from '../../store/actions/index';
+import { AppState } from 'src/app/store/app.reducer';
 
 @Component({
   selector: 'app-posts',
@@ -14,16 +16,18 @@ export class PostsComponent implements OnInit {
   viewDetailPost: boolean = false;
 
   constructor(
-    private postService: PostService
-  ) { }
+    private store: Store<AppState>
+  ) {
+    this.store.dispatch(actions.loadPosts());
+  }
 
   ngOnInit(): void {
     this.getPosts();
   }
 
   getPosts() {
-    this.postService.getPosts().subscribe((data: any ) => {
-      this.posts = data;
+    this.store.select('posts').subscribe( data => {
+      this.posts = data.posts;
     })
   }
 

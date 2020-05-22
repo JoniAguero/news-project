@@ -25,7 +25,7 @@ export class PostService {
   getPosts(): Observable<Post[]> {
     try {
       return this.http.get(`${this.url}/posts/`).pipe(
-        map((resp: any) => {
+        map((resp: Post[]) => {
           resp = resp.map(post => this.hydratePost(post));
           return resp;
         }),
@@ -44,7 +44,7 @@ export class PostService {
     try {
       if(userId) {
         return this.http.get(`${this.url}/posts/user/${userId}`).pipe(
-          map((resp: any) => {
+          map((resp: Post[]) => {
             resp = resp.map(post => this.hydratePost(post));
             return resp;
           }),
@@ -89,7 +89,8 @@ export class PostService {
 
   private hydratePost(data: any): Post {
     const post = new Post(data);
-    if (data.userId) this.userService.getUserById(data.userId).subscribe((user)=> post.userId = user[0]);
+    
+    if (data.userId && Number.isInteger(data.userId)) this.userService.getUserById(data.userId).subscribe((user)=> post.userId = user[0]);
     return post;
   }
   

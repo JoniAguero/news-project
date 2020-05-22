@@ -1,11 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
 import * as actions from '../actions/auth.actions';
 
-export interface State {
+export interface AuthState {
   auth: String;
 }
  
-export const initialState: State = {
+const initialState: AuthState = {
   auth: 'unauthenticated'
 };
  
